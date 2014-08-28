@@ -43,9 +43,8 @@ h1 {
 }
 
 
-input[type="button"] {
+button {
   font-weight: bold;
-  transition: background-color 0.5s;
 }
 
 
