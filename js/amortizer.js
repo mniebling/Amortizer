@@ -9,9 +9,9 @@ $(document).ready(function() {
 
   $('#do-stuff').click(function() {
 
-    principal = $('#principal').val();
-    monthlyInterest = $('#interest').val() / 1200;
-    months = $('#months').val();
+    principal       = $('#input-principal').val();
+    monthlyInterest = $('#input-interest').val() / 1200;
+    months          = $('#input-months').val();
 
     dataset.monthlyPayment = principal * (monthlyInterest / (1 - (Math.pow(1 + monthlyInterest, -months))));
     dataset.months = [];

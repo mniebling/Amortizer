@@ -4,7 +4,7 @@
 <head>
   <title>Mortgage Amortization Calculator</title>
 
-  <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:700' rel='stylesheet' type='text/css'>-->
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans" >
 
   <link rel="stylesheet" type="text/css" href="css/normalize.css" />
   <link rel="stylesheet" type="text/css" href="css/main.css" />
@@ -24,42 +24,18 @@
 
   <div class="input-container">
 
-    <div class="input-section input-section-initial">
-      <div class="input-section-base">
-        <div class="input-group">
-          <label for="principal">Principal</label><!--
-          --><input id="principal" type="text" placeholder="Initial amount of the loan" value="241200" />
-        </div>
-
-        <div class="input-group">
-          <label for="interest">Interest</label><!--
-          --><input id="interest" type="text" placeholder="Annual interest rate (%)" value="3.75" />
-        </div>
-
-        <div class="input-group">
-          <label for="months">No. of months</label><!--
-          --><input id="months" type="text" value="360" />
-        </div>
+    <div class="input-group">
+      <div class="field">
+        <label for="input-principal">Principal</label>
+        <input type="text" value="241200" id="input-principal" placeholder="Initial amount of the loan" />
       </div>
-    </div>
-
-
-    <div class="input-section input-section-comparison">
-      <div class="input-section-base">
-        <div class="input-group">
-          <input id="principal" type="text" placeholder="Initial amount of the loan" value="241200" />
-          <label for="principal">Principal</label>
-        </div>
-
-        <div class="input-group">
-          <input id="interest" type="text" placeholder="Annual interest rate (%)" value="3.75" />
-          <label for="interest">Interest</label>
-        </div>
-
-        <div class="input-group">
-          <input id="months" type="text" value="360" />
-          <label for="months">No. of months</label>
-        </div>
+      <div class="field">
+        <label for="input-interest">Interest</label>
+        <input type="text" value="3.75" id="input-interest" placeholder="Annual interest rate (%)" />
+      </div>
+      <div class="field">
+        <label for="input-months">Term (Months)</label>
+        <input type="text" value="360" id="input-months" />
       </div>
     </div>
 
@@ -77,7 +53,7 @@
 
     <div class="output-contents">
       <div class="output-contents-message">
-        Click Do Stuff to see things happen!
+        Click Calculate to see things happen!
       </div>
 
       <div class="output-contents-chart"></div>
