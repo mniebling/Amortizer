@@ -2,127 +2,127 @@
 
 <html>
 <head>
-	<title>Mortgage Amortization Calculator</title>
+  <title>Mortgage Amortization Calculator</title>
 
-	<!--<link href='http://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:700' rel='stylesheet' type='text/css'>-->
+  <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans|Open+Sans+Condensed:700' rel='stylesheet' type='text/css'>-->
 
-	<link rel="stylesheet" type="text/css" href="css/normalize.css" />
-	<link rel="stylesheet" type="text/css" href="css/main.css" />
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+  <link rel="stylesheet" type="text/css" href="css/main.css" />
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 </head>
 
 
 <body>
 
 
-	<div class="header">
-		<h1>Visual Mortgage Calculator</h1>
-		<div class="header-subtitle">
-			Enter your mortgage's info below to see when it'll be paid off.
-		</div>
-	</div>
+  <div class="header">
+    <h1>Visual Mortgage Calculator</h1>
+    <div class="header-subtitle">
+      Enter your mortgage's info below to see when it'll be paid off.
+    </div>
+  </div>
 
 
-	<div class="input-container">
+  <div class="input-container">
 
-		<div class="input-section input-section-initial">
-			<div class="input-section-base">
-				<div class="input-group">
-					<label for="principal">Principal</label><!--
-					--><input id="principal" type="text" placeholder="Initial amount of the loan" value="241200" />
-				</div>
+    <div class="input-section input-section-initial">
+      <div class="input-section-base">
+        <div class="input-group">
+          <label for="principal">Principal</label><!--
+          --><input id="principal" type="text" placeholder="Initial amount of the loan" value="241200" />
+        </div>
 
-				<div class="input-group">
-					<label for="interest">Interest</label><!--
-					--><input id="interest" type="text" placeholder="Annual interest rate (%)" value="3.75" />
-				</div>
+        <div class="input-group">
+          <label for="interest">Interest</label><!--
+          --><input id="interest" type="text" placeholder="Annual interest rate (%)" value="3.75" />
+        </div>
 
-				<div class="input-group">
-					<label for="months">No. of months</label><!--
-					--><input id="months" type="text" value="360" />
-				</div>
-			</div>
-		</div>	
-
-
-		<div class="input-section input-section-comparison">
-			<div class="input-section-base">
-				<div class="input-group">
-					<input id="principal" type="text" placeholder="Initial amount of the loan" value="241200" />
-					<label for="principal">Principal</label>
-				</div>
-
-				<div class="input-group">
-					<input id="interest" type="text" placeholder="Annual interest rate (%)" value="3.75" />
-					<label for="interest">Interest</label>
-				</div>
-
-				<div class="input-group">
-					<input id="months" type="text" value="360" />
-					<label for="months">No. of months</label>
-				</div>
-			</div>
-		</div>
-
-		<input type="button" id="do-stuff" value="Calculate"/>
-
-	</div>
+        <div class="input-group">
+          <label for="months">No. of months</label><!--
+          --><input id="months" type="text" value="360" />
+        </div>
+      </div>
+    </div>
 
 
+    <div class="input-section input-section-comparison">
+      <div class="input-section-base">
+        <div class="input-group">
+          <input id="principal" type="text" placeholder="Initial amount of the loan" value="241200" />
+          <label for="principal">Principal</label>
+        </div>
 
-	<div class="output">
-		<div class="output-tabs">
-			<div class="output-tab selected" data-tab-target="output-contents-chart">Chart</div>
-			<div class="output-tab" data-tab-target="output-contents-table">Table</div>
-		</div>
+        <div class="input-group">
+          <input id="interest" type="text" placeholder="Annual interest rate (%)" value="3.75" />
+          <label for="interest">Interest</label>
+        </div>
 
-		<div class="output-contents">
-			<div class="output-contents-message">
-				Click Do Stuff to see things happen!
-			</div>
+        <div class="input-group">
+          <input id="months" type="text" value="360" />
+          <label for="months">No. of months</label>
+        </div>
+      </div>
+    </div>
 
-			<div class="output-contents-chart"></div>
-			<div class="output-contents-table"></div>
-		</div>
-	</div>
+    <input type="button" id="do-stuff" value="Calculate"/>
+
+  </div>
 
 
 
+  <div class="output">
+    <div class="output-tabs">
+      <div class="output-tab selected" data-tab-target="output-contents-chart">Chart</div>
+      <div class="output-tab" data-tab-target="output-contents-table">Table</div>
+    </div>
 
-	<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
-	<script type="text/javascript" src="js/d3.v2.js"></script>
-	<script type="text/javascript" src="js/accounting.js"></script>
-	<script type="text/javascript" src="js/amortizer.js"></script>
-	<script type="text/javascript" src="js/mustache.js"></script>
+    <div class="output-contents">
+      <div class="output-contents-message">
+        Click Do Stuff to see things happen!
+      </div>
+
+      <div class="output-contents-chart"></div>
+      <div class="output-contents-table"></div>
+    </div>
+  </div>
 
 
-	<!-- Mustache template -->
-	<script type="text/html" id="tmpl">
 
-		<div>Monthly payment: {{#fmt}}{{monthlyPayment}}{{/fmt}}</div>
 
-		<table>
-			<tbody>
-				<tr>
-					<th>Month</th>
-					<th>Principal remaining</th>
-					<th>(to principal)</th>
-					<th>(to interest)</th>
-				</tr>
+  <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="js/d3.v2.js"></script>
+  <script type="text/javascript" src="js/accounting.js"></script>
+  <script type="text/javascript" src="js/amortizer.js"></script>
+  <script type="text/javascript" src="js/mustache.js"></script>
 
-				{{#months}}
-				<tr>
-					<td>{{monthNumber}}</td>
-					<td>{{#fmt}}{{principalRemaining}}{{/fmt}}</td>
-					<td>{{#fmt}}{{principal}}{{/fmt}}</td>
-					<td>{{#fmt}}{{interest}}{{/fmt}}</td>
-				</tr>
-				{{/months}}
 
-			</tbody>
-		<table>
+  <!-- Mustache template -->
+  <script type="text/html" id="tmpl">
 
-	</script>
+    <div>Monthly payment: {{#fmt}}{{monthlyPayment}}{{/fmt}}</div>
+
+    <table>
+      <tbody>
+        <tr>
+          <th>Month</th>
+          <th>Principal remaining</th>
+          <th>(to principal)</th>
+          <th>(to interest)</th>
+        </tr>
+
+        {{#months}}
+        <tr>
+          <td>{{monthNumber}}</td>
+          <td>{{#fmt}}{{principalRemaining}}{{/fmt}}</td>
+          <td>{{#fmt}}{{principal}}{{/fmt}}</td>
+          <td>{{#fmt}}{{interest}}{{/fmt}}</td>
+        </tr>
+        {{/months}}
+
+      </tbody>
+    <table>
+
+  </script>
 
 </body>
 </html>
