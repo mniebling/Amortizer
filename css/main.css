@@ -35,6 +35,7 @@ h1 {
   border: 1px solid #ccc;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
   width: 30%;
+  padding: 1em;
   margin: 0 auto;
 }
 
@@ -42,10 +43,10 @@ h1 {
   margin: 0 0 1em 0;
 }
 
-
 button {
   font-weight: bold;
 }
+
 
 
 /* Output area */
@@ -73,8 +74,8 @@ button {
 
 .output-tab.selected {
   background-color: rgba(0, 0, 0, 0.75);
-  color: #1bb7cb;
-  border-top-color: #1bb7cb;
+  color: #F5CD83;
+  border-top-color: #F5CD83;
   cursor: default;
 }
 
@@ -90,10 +91,6 @@ button {
 
 
 /* Amortization table */
-.output-table {
-  border: 1px solid green;
-}
-
 table {
   margin: 10px 0 0 0;
 }
