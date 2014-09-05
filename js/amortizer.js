@@ -45,6 +45,9 @@ $(document).ready(function() {
     // Hide the message
     $('.output-contents-message').hide();
 
+    // Show the comparison UI
+    $('.input-container-compare').css('display', 'inline-block');
+
 
     // Render the table via our Mustache template!
 

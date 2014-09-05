@@ -22,27 +22,45 @@
   </div>
 
 
-  <div class="input-container">
+  <div class="input-containers">
 
-    <div class="input-group">
-      <div class="field">
-        <label for="input-principal">Principal</label>
-        <input type="text" value="241200" id="input-principal" placeholder="Initial amount of the loan" />
+    <div class="input-container input-container-calculate">
+      <div class="input-group">
+        <div class="field">
+          <label for="input-principal">Principal</label>
+          <input type="text" value="241200" id="input-principal" placeholder="Initial amount of the loan" />
+        </div>
+        <div class="field">
+          <label for="input-interest">Interest</label>
+          <input type="text" value="3.75" id="input-interest" placeholder="Annual interest rate (%)" />
+        </div>
+        <div class="field">
+          <label for="input-months">Term (Months)</label>
+          <input type="text" value="360" id="input-months" />
+        </div>
       </div>
-      <div class="field">
-        <label for="input-interest">Interest</label>
-        <input type="text" value="3.75" id="input-interest" placeholder="Annual interest rate (%)" />
-      </div>
-      <div class="field">
-        <label for="input-months">Term (Months)</label>
-        <input type="text" value="360" id="input-months" />
-      </div>
+      <button id="do-stuff">Calculate</button>
     </div>
 
-    <button id="do-stuff">Calculate</button>
+    <div class="input-container input-container-compare">
+      <div class="input-group">
+        <div class="field">
+          <label for="input-principal">Principal</label>
+          <input type="text" value="241200" id="input-principal" placeholder="Initial amount of the loan" />
+        </div>
+        <div class="field">
+          <label for="input-interest">Interest</label>
+          <input type="text" value="3.75" id="input-interest" placeholder="Annual interest rate (%)" />
+        </div>
+        <div class="field">
+          <label for="input-months">Term (Months)</label>
+          <input type="text" value="360" id="input-months" />
+        </div>
+      </div>
+      <button id="do-stuff">Compare</button>
+    </div>
 
   </div>
-
 
 
   <div class="output">

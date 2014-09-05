@@ -34,14 +34,24 @@ h1 {
 
 
 /* Input area */
+.input-containers {
+  margin: 0 auto;
+  text-align: center;
+}
+
 .input-container {
+  display: inline-block;
   background-color: #fff;
   border: 1px solid #ccc;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
   width: 250px;
   padding: 10px;
-  margin: 30px auto;
+  margin: 30px 10px;
   text-align: center;
+}
+
+.input-container-compare {
+  display: none;
 }
 
 .input-group {
