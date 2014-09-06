@@ -1,17 +1,31 @@
 $(document).ready(function() {
 
-  var monthlyInterest,
-      principal,
-      months,
-      dataset = {},
+  var datasetInitial = {},
+      datasetComparison = {},
       tmpl = $('#tmpl').html();
 
 
-  $('#do-stuff').click(function() {
+  // We don't want to store formatted strings, because we'll d3-render it later
+  // So let's set up a formatting lambda the template can use
+  function formatValue() {
 
-    principal       = $('#input-principal').val();
-    monthlyInterest = $('#input-interest').val() / 1200;
-    months          = $('#input-months').val();
+    return function(value) {
+
+      return accounting.formatMoney(value, '$ ');
+    }
+  };
+
+
+  // Create a data structure containing monthly payoff data
+  // by looking at one of the input blocks for principal, interest, term
+  function createDatasetFromInputs($inputContainer) {
+
+    var dataset         = {},
+        principal       = $inputContainer.find('.input-principal').val(),
+        monthlyInterest = $inputContainer.find('.input-interest').val() / 1200,
+        months          = $inputContainer.find('.input-months').val();
+
+    dataset.fmt = formatValue;
 
     dataset.monthlyPayment = principal * (monthlyInterest / (1 - (Math.pow(1 + monthlyInterest, -months))));
     dataset.months = [];
@@ -21,10 +35,11 @@ $(document).ready(function() {
         i = 0,
         monthData = {};
 
-    while (principal > 0)
-    {
-      var thisMonthsInterest = principal * monthlyInterest;
-      var thisMonthsPrincipal = dataset.monthlyPayment - thisMonthsInterest;
+    while (principal > 0) {
+
+      var thisMonthsInterest  = principal * monthlyInterest,
+          thisMonthsPrincipal = dataset.monthlyPayment - thisMonthsInterest;
+
       newPrincipal = principal - thisMonthsPrincipal;
 
       // add to dataset
@@ -36,45 +51,45 @@ $(document).ready(function() {
 
       dataset.months.push(monthData);
 
-
       i++;
       principal = newPrincipal;
     }
 
+    return dataset;
+  }
 
-    // Hide the message
+
+
+  // --------------
+  // EVENT HANDLERS
+  // --------------
+
+  $('#calculate').click(function() {
+
+    // Crunch numbers and set up UI
+    datasetInitial = createDatasetFromInputs($('.input-container-calculate'));
+
     $('.output-contents-message').hide();
-
-    // Show the comparison UI
     $('.input-container-compare').css('display', 'inline-block');
 
+    console.log(datasetInitial);
 
-    // Render the table via our Mustache template!
+    $('.output-contents-table').html(Mustache.render(tmpl, datasetInitial));
 
-    // We don't want to store formatted strings, because we'll d3-render it later
-    // So let's set up a formatting lambda the template can use
-    dataset.fmt = function()
-    {
-      return function(value)
-      {
-        return accounting.formatMoney(value, '$ ');
-      }
-    };
-
-
-    $('.output-contents-table').html(Mustache.render(tmpl, dataset));
-
-    console.log(dataset);
+    drawChart(datasetInitial);
+  });
 
 
 
+  // -----------------
+  // D3.JS TIME WOOOOO
+  // -----------------
 
-    // -----------------
-    // D3.JS TIME WOOOOO
-    // -----------------
+  function drawChart(dataset) {
 
-    var data = dataset.months.map(function (item)
-    {
+
+    var data = datasetInitial.months.map(function (item) {
+
       return item.principalRemaining;
     });
 
@@ -118,21 +133,20 @@ $(document).ready(function() {
 
     // Draw line
     graph.append('svg:path')
-          .attr('d', line(data));
+          .attr('d', line(data));}
+
+
+
+  // ------------
+  // AWESOME TABS
+  // ------------
+
+  $('.output-tab').on('click', function() {
+
+      $('.output-tab').removeClass('selected');
+      $(this).addClass('selected');
+
+      $('.output-contents-chart, .output-contents-table').hide();
+      $('.' + $(this).attr('data-tab-target')).show();
   });
-
-
-
-    // ------------
-    // AWESOME TABS
-    // ------------
-
-    $('.output-tab').on('click', function() {
-
-        $('.output-tab').removeClass('selected');
-        $(this).addClass('selected');
-
-        $('.output-contents-chart, .output-contents-table').hide();
-        $('.' + $(this).attr('data-tab-target')).show();
-    });
 });
