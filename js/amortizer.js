@@ -80,6 +80,14 @@ $(document).ready(function() {
   });
 
 
+  $('#compare').click(function() {
+
+    datasetInitial = createDatasetFromInputs($('.input-container-compare'));
+
+    drawChart(datasetComparison);
+  });
+
+
 
   // -----------------
   // D3.JS TIME WOOOOO
@@ -94,8 +102,6 @@ $(document).ready(function() {
     });
 
 
-    $('.output-contents-chart').empty();
-
     // Set up bounds & margins
     var m = [10, 10, 10, 10],
         w = 500 - m[1] - m[3],
@@ -103,19 +109,17 @@ $(document).ready(function() {
         x = d3.scale.linear().domain([0, data.length]).range([0, w]),
         y = d3.scale.linear().domain([0, d3.max(data)]).range([h, 0]);
 
+    // Set up the chart
+    var graph = d3.select('.output-contents-chart').append('svg:svg')
+                 .attr('width', w + m[1] + m[3] + 75)
+                 .attr('height', h + m[0] + m[2])
+                 .append('svg:g')
+                 .attr('transform', 'translate(75, 0)');
+
     // Set up line calculator function
     var line = d3.svg.line()
                   .x(function(d, i) { return x(i); })
                   .y(function(d)    { return y(d); });
-
-
-    // Add an SVG element upon which to draw
-    var graph = d3.select('.output-contents-chart').append('svg:svg')
-                  .attr('width', w + m[1] + m[3] + 75)
-                  .attr('height', h + m[0] + m[2])
-                  .append('svg:g')
-                  .attr('transform', 'translate(75, 0)');
-
 
     // Create axes
     var xAxis = d3.svg.axis().scale(x).tickSize(-h).tickSubdivide(true);
@@ -133,7 +137,8 @@ $(document).ready(function() {
 
     // Draw line
     graph.append('svg:path')
-          .attr('d', line(data));}
+          .attr('d', line(data));
+  }
 
 
 
