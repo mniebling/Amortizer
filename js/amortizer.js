@@ -1,8 +1,25 @@
 $(document).ready(function() {
 
+  // Set up data structures and template
   var datasetInitial = {},
       datasetComparison = {},
       tmpl = $('#tmpl').html();
+
+  // Set up chart bounds & margins
+  var m = [10, 10, 10, 10],
+      w = 500 - m[1] - m[3],
+      h = 250 - m[0] - m[2];
+
+  // Set up chart scales (for later)
+  var x, y;
+
+  // Set up the chart boundaries
+  var chart = d3.select('.output-contents-chart').append('svg:svg')
+                .attr('width', w + m[1] + m[3] + 75)
+                .attr('height', h + m[0] + m[2])
+                .append('svg:g')
+                .attr('transform', 'translate(75, 0)');
+
 
 
   // We don't want to store formatted strings, because we'll d3-render it later
@@ -82,7 +99,7 @@ $(document).ready(function() {
 
   $('#compare').click(function() {
 
-    datasetInitial = createDatasetFromInputs($('.input-container-compare'));
+    datasetComparison = createDatasetFromInputs($('.input-container-compare'));
 
     drawChart(datasetComparison);
   });
@@ -96,25 +113,19 @@ $(document).ready(function() {
   function drawChart(dataset) {
 
 
-    var data = datasetInitial.months.map(function (item) {
+    var data = dataset.months.map(function (item) {
 
       return item.principalRemaining;
     });
 
 
-    // Set up bounds & margins
-    var m = [10, 10, 10, 10],
-        w = 500 - m[1] - m[3],
-        h = 250 - m[0] - m[2],
-        x = d3.scale.linear().domain([0, data.length]).range([0, w]),
-        y = d3.scale.linear().domain([0, d3.max(data)]).range([h, 0]);
+    // Scale the axes if necessary
+    if (typeof(x) === 'undefined') {
 
-    // Set up the chart
-    var graph = d3.select('.output-contents-chart').append('svg:svg')
-                 .attr('width', w + m[1] + m[3] + 75)
-                 .attr('height', h + m[0] + m[2])
-                 .append('svg:g')
-                 .attr('transform', 'translate(75, 0)');
+      x = d3.scale.linear().domain([0, data.length]).range([0, w]);
+      y = d3.scale.linear().domain([0, d3.max(data)]).range([h, 0]);
+    }
+
 
     // Set up line calculator function
     var line = d3.svg.line()
@@ -122,21 +133,21 @@ $(document).ready(function() {
                   .y(function(d)    { return y(d); });
 
     // Create axes
-    var xAxis = d3.svg.axis().scale(x).tickSize(-h).tickSubdivide(true);
-    var yAxis = d3.svg.axis().scale(y).ticks(4).orient('left');
+    var xAxis = d3.svg.axis().scale(x).tickSize(-h).tickSubdivide(true),
+        yAxis = d3.svg.axis().scale(y).ticks(4).orient('left');
 
     // Draw axes
-    graph.append('svg:g')
+    chart.append('svg:g')
           .attr('class', 'x axis')
           .attr('transform', 'translate(0,' + h + ')')
           .call(xAxis);
 
-    graph.append('svg:g')
+    chart.append('svg:g')
           .attr('class', 'y axis')
           .call(yAxis);
 
     // Draw line
-    graph.append('svg:path')
+    chart.append('svg:path')
           .attr('d', line(data));
   }
 
