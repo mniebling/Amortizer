@@ -91,6 +91,7 @@ $(document).ready(function() {
 
     console.log(datasetInitial);
 
+    $('.output').show();
     $('.output-contents-table').html(Mustache.render(tmpl, datasetInitial));
 
     drawChart(datasetInitial);

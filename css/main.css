@@ -96,6 +96,9 @@ button {
 /* Output area */
 .output {
   width: 100%;
+
+  /* Show it with Javascript*/
+  display: none;
 }
 
 .output-tabs {
