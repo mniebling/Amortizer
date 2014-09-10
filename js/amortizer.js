@@ -5,21 +5,30 @@ $(document).ready(function() {
       datasetComparison = {},
       tmpl = $('#tmpl').html();
 
-  // Set up chart bounds & margins
-  var m = [10, 10, 10, 10],
-      w = 500 - m[1] - m[3],
-      h = 250 - m[0] - m[2];
+  // Set up chart size
+  var w = 500,
+      h = 250,
+
+      // Padding
+      left   = 65,
+      right  = 10,
+      top    = 20,
+      bottom = 30;
 
   // Set up chart scales (for later)
   var x, y;
 
   // Set up the chart boundaries
   var chart = d3.select('.output-contents-chart').append('svg:svg')
-                .attr('width', w + m[1] + m[3] + 75)
-                .attr('height', h + m[0] + m[2])
-                .append('svg:g')
-                .attr('transform', 'translate(75, 0)');
+                .attr('width', w)
+                .attr('height', h)
+                .attr('class', 'chart')
+                .append('svg:g');
 
+  // Set up line calculator function
+  var line = d3.svg.line()
+                   .x(function(d, i) { return x(i); })
+                   .y(function(d)    { return y(d); });
 
 
   // We don't want to store formatted strings, because we'll d3-render it later
@@ -123,29 +132,30 @@ $(document).ready(function() {
     // Scale the axes if necessary
     if (typeof(x) === 'undefined') {
 
-      x = d3.scale.linear().domain([0, data.length]).range([0, w]);
-      y = d3.scale.linear().domain([0, d3.max(data)]).range([h, 0]);
+      x = d3.scale.linear().domain([0, data.length]).range([left, w - right]);
+      y = d3.scale.linear().domain([0, d3.max(data)]).range([h - bottom, top]);
+
+      // Create axes
+      var xAxis = d3.svg.axis()
+                        .scale(x)
+                        .orient('bottom');
+
+      var yAxis = d3.svg.axis()
+                        .scale(y)
+                        .orient('left');
+
+      // Draw axes
+      chart.append('svg:g')
+            .attr('class', 'x axis')
+            .attr('transform', 'translate(0,' + (h - bottom) + ')')
+            .call(xAxis);
+
+      chart.append('svg:g')
+            .attr('class', 'y axis')
+            .attr('transform', 'translate(' + left + ', 0)')
+            .call(yAxis);
     }
 
-
-    // Set up line calculator function
-    var line = d3.svg.line()
-                  .x(function(d, i) { return x(i); })
-                  .y(function(d)    { return y(d); });
-
-    // Create axes
-    var xAxis = d3.svg.axis().scale(x).tickSize(-h).tickSubdivide(true),
-        yAxis = d3.svg.axis().scale(y).ticks(4).orient('left');
-
-    // Draw axes
-    chart.append('svg:g')
-          .attr('class', 'x axis')
-          .attr('transform', 'translate(0,' + h + ')')
-          .call(xAxis);
-
-    chart.append('svg:g')
-          .attr('class', 'y axis')
-          .call(yAxis);
 
     // Draw line
     chart.append('svg:path')

@@ -170,42 +170,22 @@ td {
 
 
 
-/* Graph */
-.graph {
-
+/* SVG */
+.chart {
+  background-color: #f5f5f5;
 }
 
-
-
-/* SVG */
 path {
   stroke: #444488;
   stroke-width: 1;
   fill: none;
 }
 
-.axis {
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #ccc;
   shape-rendering: crispEdges;
-}
-
-.x.axis line {
-  stroke: #ddd;
-}
-
-.x.axis .minor {
-  stroke-opacity: .5;
-}
-
-.x.axis path {
-  display: none;
-}
-
-.y.axis line {
-  stroke: #ddd;
-}
-
-.y.axis path {
-  stroke: #999;
 }
 
 .y.axis text,
