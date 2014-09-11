@@ -100,9 +100,12 @@ $(document).ready(function() {
 
     console.log(datasetInitial);
 
+    // Update inputs
+    $('.input-container-calculate .input-payment').val(accounting.formatMoney(datasetInitial.monthlyPayment));
+
+    // Draw chart
     $('.output').show();
     $('.output-contents-table').html(Mustache.render(tmpl, datasetInitial));
-
     drawChart(datasetInitial);
   });
 
