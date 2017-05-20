@@ -2,125 +2,12 @@
 
 <html>
 <head>
-  <title>Mortgage Amortization Calculator</title>
-
-  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400,700" >
-
-  <link rel="stylesheet" type="text/css" href="css/normalize.css" />
-  <link rel="stylesheet" type="text/css" href="css/main.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Visual Mortgage Calculator</title>
 </head>
 
-
 <body>
-
-
-  <div class="header">
-    <h1>Visual Mortgage Calculator</h1>
-    <div class="header-subtitle">
-      Enter your mortgage's info below to see when it'll be paid off.
-    </div>
-  </div>
-
-
-  <div class="input-containers">
-
-    <div class="input-container input-container-calculate">
-      <div class="input-group">
-        <div class="field">
-          <label for="input-principal">Principal</label>
-          <input type="text" value="241200" class="input-principal" placeholder="Initial amount of the loan" />
-        </div>
-        <div class="field">
-          <label for="input-interest">Interest</label>
-          <input type="text" value="3.75" class="input-interest" placeholder="Annual interest rate (%)" />
-        </div>
-        <div class="field">
-          <label for="input-months">Term (Months)</label>
-          <input type="text" value="360" class="input-months" />
-        </div>
-        <div class="field">
-          <label for="input-payment">Monthly Payment</label>
-          <input type="text" value="" class="input-payment" disabled />
-        </div>
-      </div>
-      <button id="calculate">Calculate</button>
-    </div>
-
-    <div class="input-container input-container-compare">
-      <div class="input-group">
-        <div class="field">
-          <label for="input-principal">Principal</label>
-          <input type="text" value="241200" class="input-principal" placeholder="Initial amount of the loan" />
-        </div>
-        <div class="field">
-          <label for="input-interest">Interest</label>
-          <input type="text" value="3.0" class="input-interest" placeholder="Annual interest rate (%)" />
-        </div>
-        <div class="field">
-          <label for="input-months">Term (Months)</label>
-          <input type="text" value="360" class="input-months" />
-        </div>
-        <div class="field">
-          <label for="input-payment">Monthly Payment</label>
-          <input type="text" value="" class="input-payment" />
-        </div>
-      </div>
-      <button id="compare">Compare</button>
-    </div>
-
-  </div>
-
-
-  <div class="output">
-    <div class="output-tabs">
-      <div class="output-tab selected" data-tab-target="output-contents-chart">Chart</div>
-      <div class="output-tab" data-tab-target="output-contents-table">Table</div>
-    </div>
-
-    <div class="output-contents">
-      <div class="output-contents-message"></div>
-      <div class="output-contents-chart"></div>
-      <div class="output-contents-table"></div>
-    </div>
-  </div>
-
-
-
-
-  <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-  <script type="text/javascript" src="js/d3.min.js"></script><!-- d3 v3.4.11 -->
-  <script type="text/javascript" src="js/accounting.js"></script>
-  <script type="text/javascript" src="js/amortizer.js"></script>
-  <script type="text/javascript" src="js/mustache.js"></script>
-
-
-  <!-- Mustache template -->
-  <script type="text/html" id="tmpl">
-
-    <div class="monthly-payment">Monthly payment: {{#fmt}}{{monthlyPayment}}{{/fmt}}</div>
-
-    <table>
-      <tbody>
-        <tr>
-          <th>Month</th>
-          <th>Principal remaining</th>
-          <th>(to principal)</th>
-          <th>(to interest)</th>
-        </tr>
-
-        {{#months}}
-        <tr>
-          <td>{{monthNumber}}</td>
-          <td>{{#fmt}}{{principalRemaining}}{{/fmt}}</td>
-          <td>{{#fmt}}{{principal}}{{/fmt}}</td>
-          <td>{{#fmt}}{{interest}}{{/fmt}}</td>
-        </tr>
-        {{/months}}
-
-      </tbody>
-    <table>
-
-  </script>
-
+  <div id="app"></div>
+  <script src="dist/bundle.js"></script>
 </body>
 </html>
