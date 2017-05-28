@@ -24,6 +24,10 @@
     </card>
 
     <card v-if="showResults">
+      <chart v-bind:data="amortizationTableData"></chart>
+    </card>
+
+    <card v-if="showResults">
       <amortization-table v-bind:data="amortizationTableData"></amortization-table>
     </card>
   </div>
@@ -34,6 +38,7 @@ import getAmortizationTable from './calculations/get-amortization-table'
 
 import AmortizationTable from './components/amortization-table.vue'
 import Card from './components/card.vue'
+import Chart from './components/chart.vue'
 import CurrencyInput from './components/currency-input.vue'
 
 let amortizationTableData = function () {
@@ -59,6 +64,7 @@ export default
   , components:
     { AmortizationTable
     , Card
+    , Chart
     , CurrencyInput
     }
   , computed:
