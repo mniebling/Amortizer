@@ -27,5 +27,9 @@ export default
   @media (min-width: 800px) {
     width: 600px;
   }
+
+  &.is-hidden {
+    display: none;
+  }
 }
 </style>

@@ -32,5 +32,7 @@ export default function getAmortizationTable (principal, apr, term) {
     principal = newPrincipal
   }
 
+  console.info('dataset', dataset)
+
   return dataset
 }

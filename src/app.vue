@@ -23,11 +23,11 @@
       ></currency-input>
     </card>
 
-    <card v-if="showResults">
+    <card v-bind:class="{ 'is-hidden': !showResults }">
       <chart v-bind:data="amortizationTableData"></chart>
     </card>
 
-    <card v-if="showResults">
+    <card v-bind:class="{ 'is-hidden': !showResults }">
       <amortization-table v-bind:data="amortizationTableData"></amortization-table>
     </card>
   </div>
@@ -42,10 +42,6 @@ import Chart from './components/chart.vue'
 import CurrencyInput from './components/currency-input.vue'
 
 let amortizationTableData = function () {
-  // TODO: If term is too big, browser will crash.
-  // This should be surfaced to the user.
-  if (this.base.term > (40 * 12)) return;
-
   return getAmortizationTable(this.base.principal, this.base.interest, this.base.term)
 }
 
@@ -54,7 +50,8 @@ let showResults = function () {
 }
 
 export default
-  { data: () => (
+  { name: 'app'
+  , data: () => (
     { base:
       { principal: null
       , interest: null

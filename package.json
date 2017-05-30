@@ -34,6 +34,7 @@
     "webdriverio": "4.8.0"
   },
   "dependencies": {
+    "lodash.debounce": "4.0.8",
     "normalize-css": "2.3.1",
     "vue": "2.3.3"
   }

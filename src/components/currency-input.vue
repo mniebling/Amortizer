@@ -13,9 +13,11 @@
 </template>
 
 <script>
-let updateValue = function (value) {
+import debounce from 'lodash.debounce'
+
+let updateValue = debounce(function (value) {
   this.$emit('input', value)
-}
+}, 500)
 
 let classObject = function () {
   return (
