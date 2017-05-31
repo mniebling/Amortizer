@@ -7,6 +7,11 @@ import Plotly from './plotly'
 
 const layout =
   { title: 'Mortgage Baseline'
+  , yaxis:
+    { tickcolor: '#fff'
+    , tickformat: '$,'
+    , ticklen: 8
+    }
   }
 
 // https://github.com/plotly/plotly.js/blob/master/src/plot_api/plot_config.js#L22-L86
