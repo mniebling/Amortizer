@@ -17,18 +17,18 @@
         v-model="base.interest"
       ></currency-input>
       <currency-input
-        label="Term"
-        right-widget="mos"
-        v-model="base.term"
+        label="Monthly Payment"
+        left-widget="$"
+        v-model="base.payment"
       ></currency-input>
     </card>
 
     <card v-bind:class="{ 'is-hidden': !showResults }">
-      <chart v-bind:data="amortizationTableData"></chart>
+      <chart v-bind:months="amortizationTableData"></chart>
     </card>
 
     <card v-bind:class="{ 'is-hidden': !showResults }">
-      <amortization-table v-bind:data="amortizationTableData"></amortization-table>
+      <amortization-table v-bind:months="amortizationTableData"></amortization-table>
     </card>
   </div>
 </template>
@@ -42,20 +42,20 @@ import Chart from './components/chart.vue'
 import CurrencyInput from './components/currency-input.vue'
 
 let amortizationTableData = function () {
-  return getAmortizationTable(this.base.principal, this.base.interest, this.base.term)
+  return getAmortizationTable(this.base.principal, this.base.interest, this.base.payment)
 }
 
 let showResults = function () {
-  return this.base.principal && this.base.interest && this.base.term
+  return this.base.principal && this.base.interest && this.base.payment
 }
 
 export default
   { name: 'app'
   , data: () => (
     { base:
-      { principal: null
-      , interest: null
-      , term: null
+      { interest: null
+      , payment: null
+      , principal: null
       }
     })
   , components:

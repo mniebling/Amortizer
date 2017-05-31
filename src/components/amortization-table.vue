@@ -1,10 +1,5 @@
 <template>
   <div>
-    <div class="monthly-payment">
-      <span>Monthly Payment:</span>
-      <span class="currency-symbol">$</span>
-      <strong>{{ data.monthlyPayment | formatAsCurrency }}</strong>
-    </div>
 
     <table>
       <thead>
@@ -16,7 +11,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="month in data.months">
+        <tr v-for="month in months">
           <td>{{ month.monthNumber }}</td>
           <td>
             <span class="currency-symbol">$</span>
@@ -50,18 +45,12 @@ let formatAsCurrency = function (value) {
 export default
   { name: 'amortization-table'
   , methods: {}
-  , props: { 'data': Object }
+  , props: { 'months': Array }
   , filters: { formatAsCurrency }
   }
 </script>
 
 <style lang="less" scoped>
-.monthly-payment {
-  margin-bottom: 1.0rem;
-  padding: 1.0rem;
-  text-align: center;
-}
-
 table {
   width: 100%;
 }

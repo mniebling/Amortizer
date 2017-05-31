@@ -1,13 +1,14 @@
 // Create a data structure containing monthly payoff data
-// given principal, annual interest rate (apr), and term in months.
-export default function getAmortizationTable (principal, apr, term) {
+// given principal, annual interest rate (apr), and monthly payment.
+export default function getAmortizationTable (principal, apr, payment) {
 
-  let dataset = {}
+  if (!principal || !apr || !payment) {
+    return []
+  }
+
   const monthlyInterest = apr / 1200
 
-  dataset.monthlyPayment = principal * (monthlyInterest / (1 - (Math.pow(1 + monthlyInterest, -term))))
-  dataset.months = []
-
+  let months = []
   let newPrincipal = principal
   let i = 0
   let monthData = {}
@@ -15,7 +16,7 @@ export default function getAmortizationTable (principal, apr, term) {
   while (principal > 0) {
 
     let thisMonthsInterest  = principal * monthlyInterest
-    let thisMonthsPrincipal = dataset.monthlyPayment - thisMonthsInterest
+    let thisMonthsPrincipal = payment - thisMonthsInterest
 
     newPrincipal = principal - thisMonthsPrincipal
 
@@ -26,13 +27,13 @@ export default function getAmortizationTable (principal, apr, term) {
     monthData.principal = thisMonthsPrincipal
     monthData.interest = thisMonthsInterest
 
-    dataset.months.push(monthData)
+    months.push(monthData)
 
     i++;
     principal = newPrincipal
   }
 
-  console.info('dataset', dataset)
+  console.info('months', months)
 
-  return dataset
+  return months
 }

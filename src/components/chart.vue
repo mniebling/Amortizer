@@ -19,12 +19,12 @@ const options =
   , showLink: false // allow user to open chart in Plotly
   }
 
-let drawChart = function (data) {
+let drawChart = function (months) {
 
   let series =
     { type: 'scatter'
-    , x: data.months.map(m => m.monthNumber)
-    , y: data.months.map(m => m.principalRemaining)
+    , x: months.map(m => m.monthNumber)
+    , y: months.map(m => m.principalRemaining)
     }
 
   Plotly.newPlot('chartContainer', [series], layout, options)
@@ -33,8 +33,8 @@ let drawChart = function (data) {
 export default
   { name: 'chart'
   , methods: {}
-  , props: { 'data': Object }
-  , watch: { 'data': drawChart }
+  , props: { 'months': Array }
+  , watch: { 'months': drawChart }
   }
 </script>
 
