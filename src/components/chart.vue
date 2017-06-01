@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 import Plotly from './plotly'
 
 const layout =
@@ -24,11 +25,15 @@ const options =
   , showLink: false // allow user to open chart in Plotly
   }
 
+let monthNumberToDate = function (month) {
+  return moment().add(month.monthNumber, 'months').toDate()
+}
+
 let drawChart = function (months) {
 
   let series =
     { type: 'scatter'
-    , x: months.map(m => m.monthNumber)
+    , x: months.map(monthNumberToDate)
     , y: months.map(m => m.principalRemaining)
     }
 

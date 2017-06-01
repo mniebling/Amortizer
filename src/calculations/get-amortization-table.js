@@ -33,7 +33,5 @@ export default function getAmortizationTable (principal, apr, payment) {
     principal = newPrincipal
   }
 
-  console.info('months', months)
-
   return months
 }
