@@ -4,6 +4,7 @@
   "description": "A website to help visually compare mortgage payoff scenarios (or other compound interest curves).",
   "main": "index.js",
   "scripts": {
+    "build": "node tasks/build.js",
     "dev": "npm-run-all --parallel watchify serve",
     "serve": "browser-sync start --config browsersync.config.js",
     "test": "wdio wdio.config.js",
@@ -23,6 +24,7 @@
     "browser-sync": "2.18.8",
     "browserify": "14.4.0",
     "chai": "4.0.0",
+    "fs-extra": "3.0.1",
     "less": "2.7.2",
     "npm-run-all": "4.0.2",
     "plotly.js": "1.27.1",
