@@ -27,7 +27,6 @@
     "fs-extra": "3.0.1",
     "less": "2.7.2",
     "npm-run-all": "4.0.2",
-    "plotly.js": "1.27.1",
     "vueify": "9.4.1",
     "watchify": "3.9.0",
     "wdio-mocha-framework": "0.5.10",
@@ -39,6 +38,7 @@
     "lodash.debounce": "4.0.8",
     "moment": "2.18.1",
     "normalize-css": "2.3.1",
+    "plotly.js": "1.28.3",
     "vue": "2.3.3"
   }
 }
