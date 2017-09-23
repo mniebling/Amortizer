@@ -3,7 +3,7 @@ const browserify = require('browserify')
 const browserifyIncremental = require('browserify-incremental')
 const fs = require('fs-extra')
 
-const isDev = (process.env.NODE_ENV !== 'prod')
+const isDev = (process.env.NODE_ENV !== 'production')
 
 const browserifyOptions =
   { cache: {}
@@ -18,16 +18,18 @@ const browserifyOptions =
 module.exports = function bundle () {
 
   console.log('Bundling javascript to `dist/bundle.js`')
+  console.log(`process.env.NODE_ENV: ${process.env.NODE_ENV}`)
 
   let bundler = isDev
     ? browserifyIncremental(browserifyOptions)
     : browserify(browserifyOptions)
 
+  bundler.transform(require('envify'))
   bundler.transform(require('vueify'))
-
   bundler.transform(require('babelify'),
     { presets: [ require('babel-preset-es2015') ]
-    })
+    }
+  )
 
   bundler.on('time', ms => {
     console.log(`Generated bundle in ${ms}ms`)

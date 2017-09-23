@@ -1,5 +1,4 @@
 const browserSync = require('browser-sync').create()
-const budo = require('budo')
 const chokidar = require('chokidar')
 
 const build = require('./build')
