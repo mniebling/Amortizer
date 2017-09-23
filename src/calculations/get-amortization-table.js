@@ -1,5 +1,9 @@
 // Create a data structure containing monthly payoff data
 // given principal, annual interest rate (apr), and monthly payment.
+//
+// Returns an empty array if the values aren't all present.
+// Throws an error if the payment is too small (the principal will never be
+// entirely paid off).
 export default function getAmortizationTable (principal, apr, payment) {
 
   if (!principal || !apr || !payment) {
@@ -13,6 +17,14 @@ export default function getAmortizationTable (principal, apr, payment) {
   let i = 0
   let monthData = {}
 
+  // Is the payment too small?
+  const firstMonthInterest = principal * monthlyInterest
+
+  if (payment <= firstMonthInterest) {
+    throw new Error('PaymentTooSmallError')
+  }
+
+  // Construct the table
   while (principal > 0) {
 
     let thisMonthsInterest  = principal * monthlyInterest

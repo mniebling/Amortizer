@@ -21,6 +21,10 @@
         left-widget="$"
         v-model="base.payment"
       ></currency-input>
+
+      <span
+        class="hint"
+        v-if="paymentTooSmall">That payment is too small!</span>
     </card>
 
     <card v-bind:class="{ 'is-hidden': !showResults }">
@@ -41,11 +45,27 @@ import Card from './components/card.vue'
 import Chart from './components/chart.vue'
 import CurrencyInput from './components/currency-input.vue'
 
-let amortizationTableData = function () {
-  return getAmortizationTable(this.base.principal, this.base.interest, this.base.payment)
+const amortizationTableData = function amortizationTableData () {
+
+  let data = []
+
+  try {
+    data = getAmortizationTable(this.base.principal, this.base.interest, this.base.payment)
+    this.paymentTooSmall = false
+  }
+  catch (err) {
+    if (err.message === 'PaymentTooSmallError') {
+      this.paymentTooSmall = true
+    }
+  }
+
+  return data
 }
 
-let showResults = function () {
+const showResults = function showResults () {
+
+  if (this.paymentTooSmall) { return false }
+
   return this.base.principal && this.base.interest && this.base.payment
 }
 
@@ -57,6 +77,7 @@ export default
       , payment: null
       , principal: null
       }
+    , paymentTooSmall: false
     })
   , components:
     { AmortizationTable
@@ -104,5 +125,9 @@ body {
   &:not(:last-child) {
     margin-bottom: 10px;
   }
+}
+
+.hint {
+  color: #999;
 }
 </style>
