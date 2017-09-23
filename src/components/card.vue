@@ -1,7 +1,6 @@
-<template>
-  <div class="card">
-    <slot></slot>
-  </div>
+<template lang="pug">
+div.card
+  slot
 </template>
 
 <script>

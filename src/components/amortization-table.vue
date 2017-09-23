@@ -1,34 +1,24 @@
-<template>
-  <div>
-
-    <table>
-      <thead>
-        <tr>
-          <th>Month #</th>
-          <th>Principal Remaining</th>
-          <th>Paid to Principal</th>
-          <th>Paid to Interest</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="month in months">
-          <td>{{ month.monthNumber }}</td>
-          <td>
-            <span class="currency-symbol">$</span>
-            <span>{{ month.principalRemaining | formatAsCurrency }}</span>
-          </td>
-          <td>
-            <span class="currency-symbol">$</span>
-            <span>{{ month.principal | formatAsCurrency }}</span>
-          </td>
-          <td>
-            <span class="currency-symbol">$</span>
-            <span>{{ month.interest | formatAsCurrency }}</span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<template lang="pug">
+div
+  table
+    thead
+      tr
+        th Month #
+        th Principal Remaining
+        th Paid to Principal
+        th Paid to Interest
+    tbody
+      tr(v-for="month in months")
+        td {{ month.monthNumber }}
+        td
+          span.currency-symbol $
+          span {{ month.principalRemaining | formatAsCurrency }}
+        td
+          span.currency-symbol $
+          span {{ month.principal | formatAsCurrency }}
+        td
+          span.currency-symbol $
+          span {{ month.interest | formatAsCurrency }}
 </template>
 
 <script>
@@ -72,5 +62,6 @@ tr:nth-child(odd) > td {
 
 .currency-symbol {
   color: #999;
+  margin-right: 4px;
 }
 </style>

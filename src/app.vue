@@ -1,40 +1,32 @@
-<template>
-  <div class="app-container">
-    <card>
-      <strong class="para">Welcome to the Visual Mortgage Calculator.</strong>
-      <div class="para">Enter your mortgage info below to see when it'll be paid off.</div>
-    </card>
+<template lang="pug">
+div.app-container
+  card
+    strong.para Welcome to the Visual Mortgage Calculator.
+    div.para Enter your mortgage info below to see when it'll be paid off.
 
-    <card>
-      <currency-input
-        label="Principal"
-        left-widget="$"
-        v-model="base.principal"
-      ></currency-input>
-      <currency-input
-        label="Annual Interest Rate (APR)"
-        right-widget="%"
-        v-model="base.interest"
-      ></currency-input>
-      <currency-input
-        label="Monthly Payment"
-        left-widget="$"
-        v-model="base.payment"
-      ></currency-input>
+  card
+    currency-input(
+      label="Principal"
+      left-widget="$"
+      v-model="base.principal"
+      )
+    currency-input(
+      label="Annual Interest Rate (APR)"
+      right-widget="%"
+      v-model="base.interest"
+      )
+    currency-input(
+      label="Monthly Payment"
+      left-widget="$"
+      v-model="base.payment"
+      )
+    span.hint(v-if="paymentTooSmall") That payment is too small!
 
-      <span
-        class="hint"
-        v-if="paymentTooSmall">That payment is too small!</span>
-    </card>
+  card(v-bind:class="{ 'is-hidden': !showResults }")
+    chart(v-bind:months="amortizationTableData")
 
-    <card v-bind:class="{ 'is-hidden': !showResults }">
-      <chart v-bind:months="amortizationTableData"></chart>
-    </card>
-
-    <card v-bind:class="{ 'is-hidden': !showResults }">
-      <amortization-table v-bind:months="amortizationTableData"></amortization-table>
-    </card>
-  </div>
+  card(v-bind:class="{ 'is-hidden': !showResults }")
+    amortization-table(v-bind:months="amortizationTableData")
 </template>
 
 <script>

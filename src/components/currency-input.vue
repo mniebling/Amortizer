@@ -1,15 +1,14 @@
-<template>
-  <div class="currency-input">
-    <span v:if="left-widget" class="left-widget">{{ leftWidget }}</span>
-    <span v:if="right-widget" class="right-widget">{{ rightWidget }}</span>
-    <input
-      type="text"
-      class="currency-input-box"
-      v-bind:value="value"
-      v-bind:class="classObject"
-      v-on:input="updateValue($event.target.value)">
-    <label class="label">{{ label }}</label>
-  </div>
+<template lang="pug">
+div.currency-input
+  span.left-widget(v-if="leftWidget") {{ leftWidget }}
+  span.right-widget(v-if="rightWidget") {{ rightWidget }}
+  input.currency-input-box(
+    type="text"
+    v-bind:value="value"
+    v-bind:class="classObject"
+    v-on:input="updateValue($event.target.value)"
+    )
+  label.label {{ label }}
 </template>
 
 <script>

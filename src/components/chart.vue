@@ -1,5 +1,5 @@
-<template>
-  <div id="chartContainer"></div>
+<template lang="pug">
+div#chartContainer
 </template>
 
 <script>
