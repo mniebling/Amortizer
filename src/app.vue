@@ -4,29 +4,58 @@ div.app-container
     strong.para Welcome to the Visual Mortgage Calculator.
     div.para Enter your mortgage info below to see when it'll be paid off.
 
-  card
-    currency-input(
-      label="Principal"
-      left-widget="$"
-      v-model="base.principal"
-      )
-    currency-input(
-      label="Annual Interest Rate (APR)"
-      right-widget="%"
-      v-model="base.interest"
-      )
-    currency-input(
-      label="Monthly Payment"
-      left-widget="$"
-      v-model="base.payment"
-      )
-    span.hint(v-if="paymentTooSmall") That payment is too small!
+  card.for-inputs
+    //- base values are visible by default
+    div.input-column
+      currency-input(
+        label="Principal"
+        left-widget="$"
+        v-model="base.principal"
+        v-on:input="computeAmortizationData"
+        )
+      currency-input(
+        label="Annual Interest Rate (APR)"
+        right-widget="%"
+        v-model="base.interest"
+        v-on:input="computeAmortizationData"
+        )
+      currency-input(
+        label="Monthly Payment"
+        left-widget="$"
+        v-model="base.payment"
+        v-on:input="computeAmortizationData"
+        )
+      span.hint(v-if="paymentTooSmall") That payment is too small!
+
+    //- comparison values should appear when base values are valid and full
+    div.input-column
+      currency-input(
+        label="Principal"
+        left-widget="$"
+        v-model="comparison.principal"
+        v-on:input="computeAmortizationData"
+        )
+      currency-input(
+        label="Annual Interest Rate (APR)"
+        right-widget="%"
+        v-model="comparison.interest"
+        v-on:input="computeAmortizationData"
+        )
+      currency-input(
+        label="Monthly Payment"
+        left-widget="$"
+        v-model="comparison.payment"
+        v-on:input="computeAmortizationData"
+        )
 
   card(v-bind:class="{ 'is-hidden': !showResults }")
-    chart(v-bind:months="amortizationTableData")
+    chart(
+      v-bind:baseMonths="base.tableData"
+      v-bind:comparisonMonths="comparison.tableData"
+      )
 
   card(v-bind:class="{ 'is-hidden': !showResults }")
-    amortization-table(v-bind:months="amortizationTableData")
+    amortization-table(v-bind:months="base.tableData")
 </template>
 
 <script>
@@ -37,12 +66,12 @@ import Card from './components/card.vue'
 import Chart from './components/chart.vue'
 import CurrencyInput from './components/currency-input.vue'
 
-const amortizationTableData = function amortizationTableData () {
 
-  let data = []
+const computeAmortizationData = function () {
 
   try {
-    data = getAmortizationTable(this.base.principal, this.base.interest, this.base.payment)
+    this.base.tableData = getAmortizationTable(this.base.principal, this.base.interest, this.base.payment)
+    this.comparison.tableData = getAmortizationTable(this.comparison.principal, this.comparison.interest, this.comparison.payment)
     this.paymentTooSmall = false
   }
   catch (err) {
@@ -50,16 +79,13 @@ const amortizationTableData = function amortizationTableData () {
       this.paymentTooSmall = true
     }
   }
-
-  return data
 }
 
 const showResults = function showResults () {
-
   if (this.paymentTooSmall) { return false }
-
   return this.base.principal && this.base.interest && this.base.payment
 }
+
 
 export default
   { name: 'app'
@@ -68,6 +94,13 @@ export default
       { interest: null
       , payment: null
       , principal: null
+      , tableData: []
+      }
+    , comparison:
+      { interest: null
+      , payment: null
+      , principal: null
+      , tableData: []
       }
     , paymentTooSmall: false
     })
@@ -78,8 +111,10 @@ export default
     , CurrencyInput
     }
   , computed:
-    { amortizationTableData
-    , showResults
+    { showResults
+    }
+  , methods:
+    { computeAmortizationData
     }
   }
 </script>
@@ -111,6 +146,10 @@ body {
   }
 }
 
+.card.for-inputs {
+  display: flex;
+}
+
 .para {
   display: block;
 
@@ -121,5 +160,9 @@ body {
 
 .hint {
   color: #999;
+}
+
+.input-column {
+  width: 50%;
 }
 </style>

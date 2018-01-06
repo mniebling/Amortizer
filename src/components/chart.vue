@@ -29,22 +29,36 @@ let monthNumberToDate = function (month) {
   return moment().add(month.monthNumber, 'months').toDate()
 }
 
-let drawChart = function (months) {
+let drawChart = function () {
 
-  let series =
-    { type: 'scatter'
-    , x: months.map(monthNumberToDate)
-    , y: months.map(m => m.principalRemaining)
-    }
+  const createSeries = function createSeries (data, color) {
+    return (
+      { type: 'scatter'
+      , x: data.map(monthNumberToDate)
+      , y: data.map(m => m.principalRemaining)
+      , line: { color }
+      })
+  }
 
-  Plotly.newPlot('chartContainer', [series], layout, options)
+  const series =
+    [ createSeries(this.baseMonths, 'blue')
+    , createSeries(this.comparisonMonths, 'orange')
+    ]
+
+  Plotly.newPlot('chartContainer', series, layout, options)
 }
 
 export default
   { name: 'chart'
   , methods: {}
-  , props: { 'months': Array }
-  , watch: { 'months': drawChart }
+  , props:
+    { 'baseMonths': Array
+    , 'comparisonMonths': Array
+    }
+  , watch:
+    { 'baseMonths': drawChart
+    , 'comparisonMonths': drawChart
+    }
   }
 </script>
 

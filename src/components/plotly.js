@@ -3,6 +3,6 @@
 import Plotly from 'plotly.js/lib/core'
 import Scatter from 'plotly.js/lib/scatter'
 
-Plotly.register([ Scatter ]);
+Plotly.register([ Scatter ])
 
-export default Plotly;
+export default Plotly
