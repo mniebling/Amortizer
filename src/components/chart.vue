@@ -7,7 +7,8 @@ import moment from 'moment'
 import Plotly from './plotly'
 
 const layout =
-  { title: 'Mortgage Baseline'
+  { showlegend: false
+  , title: 'Mortgage Baseline'
   , yaxis:
     { tickcolor: '#fff'
     , tickformat: '$,'
