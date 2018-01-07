@@ -58,6 +58,9 @@ export default
   &:focus {
     border-bottom: 2px solid #666;
     outline: none;
+
+    .for-base & { border-bottom-color: blue; }
+    .for-comparison & { border-bottom-color: orange; }
   }
 
   &.has-left-widget { padding-left: 1.4rem; }

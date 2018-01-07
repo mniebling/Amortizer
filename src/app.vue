@@ -5,8 +5,7 @@ div.app-container
     div.para Enter your mortgage info below to see when it'll be paid off.
 
   card.for-inputs
-    //- base values are visible by default
-    div.input-column
+    div.input-column.for-base
       currency-input(
         label="Principal"
         left-widget="$"
@@ -27,8 +26,7 @@ div.app-container
         )
       span.hint(v-if="paymentTooSmall") That payment is too small!
 
-    //- comparison values should appear when base values are valid and full
-    div.input-column
+    div.input-column.for-comparison
       currency-input(
         label="Principal"
         left-widget="$"
