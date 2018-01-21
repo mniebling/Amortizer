@@ -14,6 +14,7 @@ const browserSyncConfig =
   { ghostMode: false
   , notify: false
   , open: true
+  , port: 4000
   , server: 'dist'
   }
 
