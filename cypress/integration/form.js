@@ -4,8 +4,8 @@ describe('form', () => {
 
 
   it('should have the form card displayed', () => {
-    browser.url('http://localhost:4000')
-    expect(browser.isVisible(formCard)).to.equal(true)
+    cy.visit('http://localhost:4000')
+    cy.get(formCard).should('be', 'visible')
   })
 
   // it('should only show the 1st set of fields', () => {
