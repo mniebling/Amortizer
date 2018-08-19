@@ -47,6 +47,12 @@ div.app-container
         )
 
   card(v-bind:class="{ 'is-hidden': !showResults }")
+    payoff-date(
+      v-bind:basePayoffDate="base.payoffDate"
+      v-bind:comparisonPayoffDate="comparison.payoffDate"
+      )
+
+  card(v-bind:class="{ 'is-hidden': !showResults }")
     chart(
       v-bind:baseMonths="base.tableData"
       v-bind:comparisonMonths="comparison.tableData"
@@ -58,18 +64,24 @@ div.app-container
 
 <script>
 import getAmortizationTable from './calculations/get-amortization-table'
+import getPayoffDate from './calculations/get-payoff-date'
 
 import AmortizationTable from './components/amortization-table.vue'
 import Card from './components/card.vue'
 import Chart from './components/chart.vue'
 import CurrencyInput from './components/currency-input.vue'
+import PayoffDate from './components/payoff-date.vue'
 
 
 const computeAmortizationData = function () {
 
   try {
     this.base.tableData = getAmortizationTable(this.base.principal, this.base.interest, this.base.payment)
+    this.base.payoffDate = getPayoffDate(this.base.tableData)
+
     this.comparison.tableData = getAmortizationTable(this.comparison.principal, this.comparison.interest, this.comparison.payment)
+    this.comparison.payoffDate = getPayoffDate(this.comparison.tableData)
+
     this.paymentTooSmall = false
   }
   catch (err) {
@@ -91,12 +103,14 @@ export default
     { base:
       { interest: null
       , payment: null
+      , payoffDate: null
       , principal: null
       , tableData: []
       }
     , comparison:
       { interest: null
       , payment: null
+      , payoffDate: null
       , principal: null
       , tableData: []
       }
@@ -107,6 +121,7 @@ export default
     , Card
     , Chart
     , CurrencyInput
+    , PayoffDate
     }
   , computed:
     { showResults

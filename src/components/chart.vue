@@ -8,7 +8,7 @@ import Plotly from './plotly'
 
 const layout =
   { showlegend: false
-  , title: 'Mortgage Baseline'
+  , margin: { t: 0 }
   , yaxis:
     { tickcolor: '#fff'
     , tickformat: '$,'
